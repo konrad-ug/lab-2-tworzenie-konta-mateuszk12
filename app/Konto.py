@@ -3,3 +3,4 @@ class Konto:
         self.imie = imie
         self.nazwisko = nazwisko
         self.saldo = 0
+
