@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Konto:
     def __init__(self, imie, nazwisko,pesel,kod=None):
         self.imie = imie
@@ -13,10 +16,14 @@ class Konto:
             self.pesel =  "Niepoprawny pesel!"
     def kod_check(self,kod):
         if kod[0:6] == "PROMO_" and len(kod[6:]) == 3:
-            self.kod = kod
+            if (int(self.pesel[0:2]) > 60 and self.pesel[2] in ['0','1']) or (self.pesel[2] in ['2','3']): 
+                self.kod = kod
+                self.saldo += 50
+            else:
+                self.kod = None
         else:
             self.kod = None
 
 
-        
+
 

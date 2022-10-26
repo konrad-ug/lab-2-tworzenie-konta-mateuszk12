@@ -18,13 +18,21 @@ class TestCreateBankAccount(unittest.TestCase):
         self.assertEqual(konto_pesel_poprawny.pesel,"12345678900","niepoprawny pesel")
         self.assertEqual(konto_pesel_bledny.pesel,"Niepoprawny pesel!","nie dziala sprawdzanie peselu")
     def test_kod_promocyjny(self):
-        konto_poprawny_kod = Konto("Jan","Kowalski","12345678900","PROMO_123")
-        konto_bledny_kod1 = Konto("Jan","Kowalski","12345678900","PROM_1234")
-        konto_bledny_kod2 = Konto("Jan","Kowalski","12345678900","PROM_123")
-        self.assertEqual(konto_poprawny_kod.kod,"PROMO_123","blednie zapiany kod")
-        self.assertEqual(konto_poprawny_kod.kod[0:5],"PROMO","blednie zapiany kod")
-        self.assertEqual(konto_poprawny_kod.kod[5:9],"_123","blednie zapiany kod")
-        self.assertEqual(konto_poprawny_kod.kod,"PROMO_123","blednie zapiany kod")
+        konto_poprawny_kod = Konto("Jan","Kowalski","90082285987","PROMO_123") # urodzony w 1990 roku
+        konto_bledny_kod1 = Konto("Jan","Kowalski","50010342933","PROM_1234")# urodzony w 1950 roku
+        konto_bledny_kod2 = Konto("Jan","Kowalski","12345678900","PROM_123") #
+        konto_bledny_pesel = Konto("Jan","Kowalski","50010342933","PROMO_123")
+        konto_poprawny_pesel = Konto("Jan","Kowalski","08321967998","PROMO_123")
+        self.assertEqual(konto_poprawny_kod.kod[0:5],"PROMO","blednie zapisany kod")
+        self.assertEqual(konto_poprawny_kod.kod[5:9],"_123","blednie zapisany kod")
         self.assertEqual(len(konto_poprawny_kod.kod),9,"bledna dlugosc kodu")
         self.assertEqual(konto_bledny_kod1.kod,None,"zły kod jest możliwy do wprowadzenia")
         self.assertEqual(konto_bledny_kod2.kod,None,"zły kod jest możliwy do wprowadzenia")
+        self.assertEqual(konto_poprawny_kod.kod,"PROMO_123","kod_check nie działa poprawnie")
+        self.assertEqual(konto_bledny_pesel.kod,None,"kod_check nie działa poprawnie")
+        self.assertEqual(konto_poprawny_kod.saldo,50,"nie działa dodawanie 50zł")
+        self.assertEqual(konto_bledny_pesel.saldo,0,"niepoprawna kwota")
+        self.assertEqual(konto_poprawny_pesel.kod,"PROMO_123","kod_check nie działa poprawnie")
+        self.assertEqual(konto_poprawny_pesel.saldo,50,"kod_check nie działa poprawnie")
+
+        
