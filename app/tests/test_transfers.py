@@ -21,10 +21,10 @@ class TestPrzelewy(unittest.TestCase):
         self.assertEqual(konto1.saldo,-1)
         konto2.przelewEks(40)
         self.assertEqual(konto2.saldo,0)
-        konto1.przelewP(10)
+        konto1.saldo = 9
         konto1.przelewEks(5)
         self.assertEqual(konto1.saldo,3)
-        konto2.przelewP(20)
+        konto2.saldo = 20
         konto2.przelewEks(10)
         self.assertEqual(konto2.saldo,5)
         konto2.przelewEks(5)
