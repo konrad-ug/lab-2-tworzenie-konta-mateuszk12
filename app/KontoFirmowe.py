@@ -12,4 +12,6 @@ class KontoFirmowe(Konto):
             self.nip = nip      
     def przelewEks(self, kwota):
         return super().przelewEks(kwota,oplata=5)
+    def testCoverage():
+        print("cos")
     
