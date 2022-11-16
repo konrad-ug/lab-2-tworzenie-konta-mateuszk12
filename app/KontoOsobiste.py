@@ -1,7 +1,7 @@
 from app.Konto import Konto
 class KontoOsobiste(Konto):
     def __init__(self, imie, nazwisko,pesel,kod=None):
-        super().__init__(0)
+        super().__init__(0,[])
         self.imie = imie
         self.nazwisko = nazwisko
         self.saldo = 0
