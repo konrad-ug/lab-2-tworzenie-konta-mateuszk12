@@ -24,3 +24,14 @@ class KontoOsobiste(Konto):
             self.kod = None
     def przelewEks(self, kwota):
         return super().przelewEks(kwota, oplata=1)
+    def zaciagnij_kredyt(self,kwota):
+        suma = 0
+        for i in self.history[-5:]:
+            suma += i
+        czy_wpłaty = True
+        for i in self.history[-3:]:
+            if (i < 0):
+                czy_wpłaty = False
+        if czy_wpłaty and suma > kwota:
+            self.saldo += kwota
+            return True
