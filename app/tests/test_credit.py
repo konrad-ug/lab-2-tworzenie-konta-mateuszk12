@@ -13,7 +13,12 @@ class TestCredit(unittest.TestCase):
         self.konto = KontoOsobiste(self.imie,self.nazwisko,self.pesel)
 
     @parameterized.expand([
-        ([-100,100,100,100,600],500,True,500)
+        ([-100,100,100,100,600],500,True,500),
+        ([],500,False,0),
+        ([-100,100,100,-100,600],500,False,0),
+        ([-100,100,100,100,100],500,False,0),
+        ([-100,100,100,-100,600],500,False,0),
+    
     ])
     def test_getting_credit(self,historia,kwota,oczekiwany_wynik,oczekiwane_saldo):
         self.konto.history = historia
