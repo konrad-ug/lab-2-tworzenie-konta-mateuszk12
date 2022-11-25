@@ -12,4 +12,9 @@ class KontoFirmowe(Konto):
             self.nip = nip      
     def przelewEks(self, kwota):
         return super().przelewEks(kwota,oplata=5)
-    
+    def zaciagnij_kredyt(self,kwota):
+        if self.saldo >= kwota*2 and 1775 in self.history:
+            self.saldo += kwota
+            return True
+        else: 
+            return False
