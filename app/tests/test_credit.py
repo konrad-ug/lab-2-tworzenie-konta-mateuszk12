@@ -2,7 +2,6 @@ import unittest
 from parameterized import parameterized, parameterized_class
 
 from ..KontoOsobiste import KontoOsobiste
-from ..KontoFirmowe import KontoFirmowe
 
 class TestCredit(unittest.TestCase):
     imie = "Jan"
