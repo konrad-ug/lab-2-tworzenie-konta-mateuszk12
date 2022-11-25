@@ -21,6 +21,12 @@ class TestRejestrKont(unittest.TestCase):
         konto = KontoOsobiste(self.imie,self.nazwisko,self.pesel)
         RejestrKont.dodaj_konto(konto)
         self.assertEqual(RejestrKont.ile_kont(),4)
+    def test_3_wyszukiwanie_kont(self):
+        konto = KontoOsobiste(self.imie,self.nazwisko,"90082285988")
+        RejestrKont.dodaj_konto(konto)
+        self.assertEqual(RejestrKont.wyszukaj_konto("90082285988"),konto)
+    def test_4_wyszukiwanie_kont(self):
+        self.assertEqual(RejestrKont.wyszukaj_konto("12345678909"),None)
     @classmethod
     def tearDownClass(cls):
         RejestrKont.list = []

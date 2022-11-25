@@ -1,8 +1,5 @@
-from app.Konto import Konto
-
 class RejestrKont():
     lista = []
-
     @classmethod
     def dodaj_konto(cls,konto):
         cls.lista.append(konto)
@@ -14,6 +11,6 @@ class RejestrKont():
         for konto in cls.lista:
             if konto.pesel == pesel:
                 return konto
-            
+        return None    
 
 
