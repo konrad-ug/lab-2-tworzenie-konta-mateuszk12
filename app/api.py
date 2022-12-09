@@ -11,7 +11,6 @@ def stworz_konto():
     if konto != None:
         return jsonify("konto z podanym peselem istnieje"),400
     else:
-        print(f"Request o stworzenie konta z danymi: {dane}")
         konto_nowe = KontoOsobiste(dane["imie"],dane["nazwisko"],dane["pesel"])
         RejestrKont.dodaj_konto(konto_nowe)
         return jsonify("konto stworzone"),201
@@ -24,27 +23,25 @@ def ile_kont():
 def wyszukaj_konto_z_peselem(pesel):
     
     konto = RejestrKont.wyszukaj_konto(pesel)
-   
     return jsonify(imie=konto.imie,nazwisko=konto.nazwisko,saldo=konto.saldo),200 
 @app.route('/konta/konto/<pesel>',methods=['PUT'])
 def aktualizuj_konto(pesel):
-    print("wyszukiwanie puta")
-    print(pesel)
-    dane = request.get_json()
-    
+
+    dane = request.get_json()    
     konto = RejestrKont.wyszukaj_konto(pesel)
-    print(konto)
-    konto.imie = dane['nazwisko'] if 'nazwisko' in dane else dane.nazwisko
+    konto.nazwisko = dane['nazwisko'] if 'nazwisko' in dane else dane.nazwisko
     konto.imie = dane['imie'] if 'imie' in dane else dane.imie
-    konto.imie = dane['pesel'] if 'pesel' in dane else dane.pesel
-    konto.imie = dane['saldo'] if 'saldo' in dane else dane.saldo
+    konto.pesel = dane['pesel'] if 'pesel' in dane else dane.pesel
+    konto.saldo = dane['saldo'] if 'saldo' in dane else dane.saldo
     return jsonify("zakończono aktualizacje danych sukcesem"),200
 @app.route('/konta/konto/<pesel>',methods=['DELETE'])
 def usun_konto(pesel):
-    status = RejestrKont.usun_konto(pesel)
-    if status != None:
-        return jsonify("pomyślnie usunięto konto"),200
-    else:
+    konto = RejestrKont.wyszukaj_konto(pesel)
+    print(konto)
+    if konto == None:
         return jsonify("brak takiego konta"),404
+    else:
+        RejestrKont.usun_konto(pesel)
+        return jsonify("pomyślnie usunięto konto"),200
     
     
